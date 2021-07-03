@@ -1,6 +1,6 @@
 const ContactList = ({ stateData }) => {
   return (
-    <ul>
+    <ol>
       {stateData.map(el => {
         return (
           <li key={el.id}>
@@ -8,7 +8,7 @@ const ContactList = ({ stateData }) => {
           </li>
         );
       })}
-    </ul>
+    </ol>
   );
 };
 
