@@ -1,14 +1,20 @@
-const ContactList = ({ stateData }) => {
+const ContactList = ({ contacts, optionList }) => {
   return (
-    <ol>
-      {stateData.map(el => {
-        return (
-          <li key={el.id}>
-            {el.name} : {el.number}
-          </li>
-        );
-      })}
-    </ol>
+    <>
+      {contacts.length ? (
+        <ol>
+          {contacts.map(el => {
+            return (
+              <li key={el.id}>
+                {el.name} : {el.number}
+              </li>
+            );
+          })}
+        </ol>
+      ) : (
+        <p>{optionList}</p>
+      )}
+    </>
   );
 };
 

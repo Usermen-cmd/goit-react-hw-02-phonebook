@@ -7,35 +7,59 @@ import ContactList from 'Components/Phonebook/ContactList/ContactList';
 
 class Phonebook extends Component {
   state = {
-    contacts: [
-      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-    ],
+    contacts: [],
     filter: '',
   };
-  getContactList = data => {
+  isNameUnique = (name, contacts) => {
+    const hasName = contacts.find(el => el.name === name);
+    return hasName ? false : true;
+  };
+
+  setContactList = newContact => {
     this.setState(prevState => {
-      return { contacts: [...prevState.contacts, { ...data, id: uuidv4() }] };
+      const isUnique = this.isNameUnique(newContact.name, prevState.contacts);
+
+      if (isUnique) {
+        return {
+          contacts: [...prevState.contacts, { ...newContact, id: uuidv4() }],
+        };
+      }
+
+      alert(`имя ${newContact.name} есть в списке контактов`);
     });
   };
+
   onFilterChange = event => {
-    const value = event.target.value;
-    this.setState({ filter: value.toLowerCase() });
+    const normalizeValue = event.target.value.toLowerCase().trim();
+    this.setState({ filter: normalizeValue });
   };
 
   getfiltredContacts = () => {
     const { contacts, filter } = this.state;
-    return contacts.filter(el => el.name.toLowerCase().includes(filter));
+    const filtredContacts = contacts.filter(el =>
+      el.name.toLowerCase().includes(filter),
+    );
+    return filtredContacts;
   };
+
+  setEntryContactList = filtredContacts => {
+    const { contacts } = this.state;
+    if (filtredContacts.length === 0 && contacts.length === 0) {
+      return 'Вы не добавили ни одного контакта';
+    }
+    return 'Такого контакта в списке не найдено';
+  };
+
   render() {
     const filtredContacts = this.getfiltredContacts();
+    const entryContactList = this.setEntryContactList(filtredContacts);
     return (
       <div>
-        <ContactForm getContactList={this.getContactList} />
+        <h1>Phonebook</h1>
+        <ContactForm setContactList={this.setContactList} />
+        <h2>Contacts</h2>
         <Filter onFilterChange={this.onFilterChange} />
-        <ContactList stateData={filtredContacts} />
+        <ContactList contacts={filtredContacts} optionList={entryContactList} />
       </div>
     );
   }
