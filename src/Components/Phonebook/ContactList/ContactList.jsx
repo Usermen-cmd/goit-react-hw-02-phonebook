@@ -1,16 +1,21 @@
-const ContactList = ({ contacts, optionList }) => {
+const ContactList = ({ contacts, optionList, onDelClick }) => {
   return (
     <>
       {contacts.length ? (
-        <ol>
+        <ul>
           {contacts.map(el => {
             return (
               <li key={el.id}>
-                {el.name} : {el.number}
+                <span>
+                  {el.name} : {el.number}
+                </span>
+                <button type="button" onClick={onDelClick} data-id={el.id}>
+                  delete
+                </button>
               </li>
             );
           })}
-        </ol>
+        </ul>
       ) : (
         <p>{optionList}</p>
       )}

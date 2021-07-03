@@ -10,6 +10,7 @@ class Phonebook extends Component {
     contacts: [],
     filter: '',
   };
+
   isNameUnique = (name, contacts) => {
     const hasName = contacts.find(el => el.name === name);
     return hasName ? false : true;
@@ -50,6 +51,14 @@ class Phonebook extends Component {
     return 'Такого контакта в списке не найдено';
   };
 
+  onDelClick = event => {
+    const idContact = event.target.dataset.id;
+    this.setState(({ contacts }) => {
+      const remainderContacts = contacts.filter(el => el.id !== idContact);
+      return { contacts: [...remainderContacts] };
+    });
+  };
+
   render() {
     const filtredContacts = this.getfiltredContacts();
     const entryContactList = this.setEntryContactList(filtredContacts);
@@ -59,7 +68,11 @@ class Phonebook extends Component {
         <ContactForm setContactList={this.setContactList} />
         <h2>Contacts</h2>
         <Filter onFilterChange={this.onFilterChange} />
-        <ContactList contacts={filtredContacts} optionList={entryContactList} />
+        <ContactList
+          contacts={filtredContacts}
+          optionList={entryContactList}
+          onDelClick={this.onDelClick}
+        />
       </div>
     );
   }
