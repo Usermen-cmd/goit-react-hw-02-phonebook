@@ -1,6 +1,13 @@
-const { Component } = require('react');
+import { Component } from 'react';
+import PropTypes from 'prop-types';
+import InputName from './InputName';
+import InputTel from './InputTel';
 
 class ContactForm extends Component {
+  static propTypes = {
+    setContactList: PropTypes.func.isRequired,
+  };
+
   state = {
     name: '',
     number: '',
@@ -26,28 +33,13 @@ class ContactForm extends Component {
     return (
       <>
         <form onSubmit={this.onSubmitClick}>
-          <input
-            type="text"
-            name="name"
-            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
-            required
-            onChange={this.onChangeInput}
-            value={name}
-          />
-          <input
-            type="tel"
-            name="number"
-            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-            title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
-            required
-            onChange={this.onChangeInput}
-            value={number}
-          />
+          <InputName handler={this.onChangeInput} value={name} />
+          <InputTel handler={this.onChangeInput} value={number} />
           <button type="submit">Add Contact</button>
         </form>
       </>
     );
   }
 }
+
 export default ContactForm;
