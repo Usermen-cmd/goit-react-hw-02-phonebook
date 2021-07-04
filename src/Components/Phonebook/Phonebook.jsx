@@ -1,10 +1,15 @@
 import { Component } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-
+//Components
 import ContactForm from 'Components/Phonebook/ContactForm/ContactForm';
 import Filter from 'Components/Phonebook/Filter/Filter';
 import ContactList from 'Components/Phonebook/ContactList/ContactList';
+//Utils
 import arraySort from 'array-sort';
+//Styles
+import { Container } from 'styles/Container';
+import { HeaderPrimary } from 'styles/HeaderPrimary';
+import { SecondaryHeader } from 'styles/SecondaryHeader';
 
 class Phonebook extends Component {
   state = {
@@ -15,7 +20,7 @@ class Phonebook extends Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
-    sort: false,
+    toggleSort: false,
   };
 
   isNameUnique = (name, contacts) => {
@@ -69,12 +74,11 @@ class Phonebook extends Component {
   onSortClick = () => {
     this.setState(prevState => {
       const sortByName = arraySort(prevState.contacts, 'name', {
-        reverse: prevState.sort,
+        reverse: prevState.toggleSort,
       });
-      console.log(sortByName);
       return {
         contacts: [...sortByName],
-        sort: !prevState.sort,
+        toggleSort: !prevState.toggleSort,
       };
     });
   };
@@ -83,18 +87,21 @@ class Phonebook extends Component {
     const filtredContacts = this.getfiltredContacts();
     const entryContactList = this.setEntryContactList(filtredContacts);
     return (
-      <div>
-        <h1>Phonebook</h1>
+      <Container>
+        <HeaderPrimary>Phonebook</HeaderPrimary>
         <ContactForm setContactList={this.setContactList} />
-        <h2>Contacts</h2>
-        <Filter onFilterChange={this.onFilterChange} />
+        <SecondaryHeader>Contacts</SecondaryHeader>
+        <Filter
+          onFilterChange={this.onFilterChange}
+          buttonTitle={this.state.toggleSort ? 'Z-A' : 'A-Z'}
+          onSortClick={this.onSortClick}
+        />
         <ContactList
           contacts={filtredContacts}
           optionList={entryContactList}
           onDelClick={this.onDelClick}
-          onSortClick={this.onSortClick}
         />
-      </div>
+      </Container>
     );
   }
 }

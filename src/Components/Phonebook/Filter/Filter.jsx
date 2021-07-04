@@ -1,11 +1,18 @@
 import PropTyps from 'prop-types';
 
-const Filter = ({ onFilterChange }) => {
+import { Find } from 'styles/Find';
+
+const Filter = ({ onFilterChange, buttonTitle, onSortClick }) => {
   return (
-    <>
+    <Find>
       <h4>Find contact by name</h4>
-      <input type="text" onChange={onFilterChange} />
-    </>
+      <div>
+        <input type="text" onChange={onFilterChange} placeholder="Enter Name" />
+        <button type="button" onClick={onSortClick}>
+          Sort by {buttonTitle}
+        </button>
+      </div>
+    </Find>
   );
 };
 

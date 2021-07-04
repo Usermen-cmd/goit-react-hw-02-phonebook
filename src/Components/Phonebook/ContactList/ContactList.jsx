@@ -1,13 +1,12 @@
 import PropTypes from 'prop-types';
+//Styles
+import { List } from 'styles/List';
 
-const ContactList = ({ contacts, optionList, onDelClick, onSortClick }) => {
+const ContactList = ({ contacts, optionList, onDelClick }) => {
   return (
     <>
       {contacts.length ? (
-        <ul>
-          <button type="button" onClick={onSortClick}>
-            Sort
-          </button>
+        <List>
           {contacts.map(el => {
             return (
               <li key={el.id}>
@@ -20,7 +19,7 @@ const ContactList = ({ contacts, optionList, onDelClick, onSortClick }) => {
               </li>
             );
           })}
-        </ul>
+        </List>
       ) : (
         <p>{optionList}</p>
       )}

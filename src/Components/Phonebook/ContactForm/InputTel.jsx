@@ -10,6 +10,7 @@ const InputTel = ({ title, handler, value }) => {
       required
       onChange={handler}
       value={value}
+      placeholder="Enter Phone"
     />
   );
 };

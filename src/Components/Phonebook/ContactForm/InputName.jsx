@@ -10,6 +10,7 @@ const InputName = ({ title, handler, value }) => {
       required
       onChange={handler}
       value={value}
+      placeholder="Enter Name"
     />
   );
 };

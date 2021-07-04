@@ -1,7 +1,10 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+//Components
 import InputName from './InputName';
 import InputTel from './InputTel';
+//Styles
+import { Form } from 'styles/Form';
 
 class ContactForm extends Component {
   static propTypes = {
@@ -31,13 +34,11 @@ class ContactForm extends Component {
   render() {
     const { name, number } = this.state;
     return (
-      <>
-        <form onSubmit={this.onSubmitClick}>
-          <InputName handler={this.onChangeInput} value={name} />
-          <InputTel handler={this.onChangeInput} value={number} />
-          <button type="submit">Add Contact</button>
-        </form>
-      </>
+      <Form onSubmit={this.onSubmitClick}>
+        <InputName handler={this.onChangeInput} value={name} />
+        <InputTel handler={this.onChangeInput} value={number} />
+        <button type="submit">Add Contact</button>
+      </Form>
     );
   }
 }
