@@ -22,6 +22,10 @@ export const Form = styled.form`
     &::placeholder {
       color: #999;
     }
+    &:focus {
+      box-shadow: 0 0 2pt 1pt #69c2be;
+      outline: none;
+    }
     @media (min-width: 768px) {
       display: block;
       padding: 2px 5px;
