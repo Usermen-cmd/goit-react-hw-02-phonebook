@@ -1,5 +1,4 @@
 import { Component } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 //Components
 import ContactForm from 'Components/Phonebook/ContactForm/ContactForm';
 import Filter from 'Components/Phonebook/Filter/Filter';
@@ -28,13 +27,12 @@ class Phonebook extends Component {
     return hasName ? false : true;
   };
 
-  setContactList = newContact => {
+  setContactList = (newContact, contactId) => {
     this.setState(prevState => {
       const isUnique = this.isNameUnique(newContact.name, prevState.contacts);
-      console.log(isUnique);
       if (isUnique) {
         return {
-          contacts: [...prevState.contacts, { ...newContact, id: uuidv4() }],
+          contacts: [...prevState.contacts, { ...newContact, id: contactId }],
         };
       } else {
         alert(`имя ${newContact.name} есть в списке контактов`);
@@ -73,11 +71,11 @@ class Phonebook extends Component {
 
   onSortClick = () => {
     this.setState(prevState => {
-      const sortByName = arraySort(prevState.contacts, 'name', {
+      const sortedByName = arraySort(prevState.contacts, 'name', {
         reverse: prevState.toggleSort,
       });
       return {
-        contacts: [...sortByName],
+        contacts: [...sortedByName],
         toggleSort: !prevState.toggleSort,
       };
     });

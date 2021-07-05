@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import { v4 as uuidv4 } from 'uuid';
 //Components
 import InputName from './InputName';
 import InputTel from './InputTel';
@@ -24,10 +25,9 @@ class ContactForm extends Component {
 
   onSubmitClick = event => {
     event.preventDefault();
-    this.setState((pervState, { setContactList }) => {
-      setContactList(pervState);
-      return { name: '', number: '' };
-    });
+    const contactId = uuidv4();
+    this.props.setContactList(this.state, contactId);
+    this.setState({ name: '', number: '' });
   };
 
   render() {

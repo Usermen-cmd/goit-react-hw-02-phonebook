@@ -9,7 +9,7 @@ const ContactList = ({ contacts, optionList, onDelClick }) => {
         <List>
           {contacts.map(el => {
             return (
-              <li key={el.id}>
+              <li key={el.id} data-id={el.id}>
                 <span>
                   {el.name} : {el.number}
                 </span>
