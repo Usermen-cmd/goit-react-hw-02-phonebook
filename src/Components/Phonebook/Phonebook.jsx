@@ -31,14 +31,14 @@ class Phonebook extends Component {
   setContactList = newContact => {
     this.setState(prevState => {
       const isUnique = this.isNameUnique(newContact.name, prevState.contacts);
-
+      console.log(isUnique);
       if (isUnique) {
         return {
           contacts: [...prevState.contacts, { ...newContact, id: uuidv4() }],
         };
+      } else {
+        alert(`имя ${newContact.name} есть в списке контактов`);
       }
-
-      alert(`имя ${newContact.name} есть в списке контактов`);
     });
   };
 

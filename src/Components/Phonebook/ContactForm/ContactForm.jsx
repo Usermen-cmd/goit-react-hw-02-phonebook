@@ -24,8 +24,7 @@ class ContactForm extends Component {
 
   onSubmitClick = event => {
     event.preventDefault();
-    const { setContactList } = this.props;
-    this.setState(pervState => {
+    this.setState((pervState, { setContactList }) => {
       setContactList(pervState);
       return { name: '', number: '' };
     });
